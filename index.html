@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sweet Seventeen Habibah Syarifaturrahma</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Audio Player -->
+    <audio id="bg-music" src="audio/music.mp3" loop></audio>
+
+    <!-- 1. HALAMAN COVER / LANDING -->
+    <section id="cover-page" class="cover-page">
+        <div class="cover-content">
+            <p class="cover-subtitle">YOU'RE INVITED TO</p>
+            <h1 class="cover-title">Sweet Seventeen</h1>
+            <h2 class="cover-name">Habibah Syarifaturrahma</h2>
+            <p class="cover-date">05 September 2026</p>
+
+            <div class="guest-box">
+                <p>Kepada Yth. Bapak/Ibu/Saudara/i:</p>
+                <h3 id="guest-name">Memuat nama...</h3>
+            </div>
+
+            <button class="btn-open" onclick="openInvitation()">Open Invitation</button>
+        </div>
+    </section>
+
+    <!-- KONTEN UTAMA (TERSEMBUNYI SEBELUM OPEN INVITATION) -->
+    <main id="main-content" class="main-container hidden">
+        
+        <!-- Ornamen Bunga Lily (Kiri & Kanan) -->
+        <img src="images/lily-left.png" class="lily-decoration lily-left" alt="Lily Left">
+        <img src="images/lily-right.png" class="lily-decoration lily-right" alt="Lily Right">
+
+        <div class="content-wrapper">
+            <!-- 2. HALAMAN HOME -->
+            <section id="page-home" class="page-section active">
+                <p class="home-subtitle">SWEET SEVENTEEN</p>
+                <h1 class="home-name">Habibah Syarifaturrahma</h1>
+                <p class="home-date">05 September 2026</p>
+                <div class="divider">🌸</div>
+                <p class="home-greeting">
+                    Assalamu'alaikum Warahmatullahi Wabarakatuh,<br><br>
+                    Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i
+                    berkenan hadir untuk memberikan doa restu pada acara kami.
+                </p>
+            </section>
+
+            <!-- 3. HALAMAN EVENT -->
+            <section id="page-event" class="page-section hidden">
+                <h2 class="section-title">Detail Acara</h2>
+                
+                <!-- Countdown Timer -->
+                <div class="countdown-container">
+                    <div class="time-box"><span id="days">00</span><p>Hari</p></div>
+                    <div class="time-box"><span id="hours">00</span><p>Jam</p></div>
+                    <div class="time-box"><span id="minutes">00</span><p>Menit</p></div>
+                    <div class="time-box"><span id="seconds">00</span><p>Detik</p></div>
+                </div>
+
+                <div class="event-card">
+                    <p class="event-date">🗓️ Sabtu, 05 September 2026</p>
+                    <p class="event-time">⏰ 15:00 WIB - Selesai</p>
+                    <hr>
+                    <p class="event-location">📍 Gedung Serbaguna</p>
+                    <p class="event-address">Jl. Mawar Indah No. 17, Surabaya</p>
+                    <a href="https://maps.google.com" target="_blank" class="btn-primary">Buka Google Maps</a>
+                </div>
+            </section>
+
+            <!-- 4. HALAMAN RSVP & GIFT -->
+            <section id="page-rsvp" class="page-section hidden">
+                <!-- Digital Gift -->
+                <div class="gift-section">
+                    <h2 class="section-title">Digital Gift</h2>
+                    <p>Doa restu Anda merupakan hadiah terindah. Namun jika ingin memberi hadiah, dapat melalui:</p>
+                    <div class="bank-card">
+                        <p class="bank-name">Bank BCA</p>
+                        <p class="account-number" id="account-no">1234567890</p>
+                        <p class="account-holder">a.n Habibah Syarifaturrahma</p>
+                        <button class="btn-secondary" onclick="copyRekening()">Copy Rekening</button>
+                    </div>
+                    <div class="qris-box">
+                        <img src="images/qris.png" alt="QRIS" class="qris-img">
+                    </div>
+                </div>
+
+                <hr class="section-divider">
+
+                <!-- Form Konfirmasi Kehadiran -->
+                <div class="rsvp-section">
+                    <h2 class="section-title">Konfirmasi Kehadiran</h2>
+                    <form id="rsvp-form" onsubmit="submitRSVP(event)">
+                        <div class="form-group">
+                            <label>Nama Anda</label>
+                            <input type="text" id="form-name" required placeholder="Masukkan nama anda">
+                        </div>
+                        <div class="form-group">
+                            <label>Konfirmasi Kehadiran</label>
+                            <select id="form-attendance" required>
+                                <option value="Hadir">Hadir</option>
+                                <option value="Tidak Hadir">Tidak Hadir</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Jumlah Tamu</label>
+                            <input type="number" id="form-count" value="1" min="1" max="5" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Pesan / Ucapan</label>
+                            <textarea id="form-wishes" rows="3" placeholder="Tuliskan ucapan & doa..."></textarea>
+                        </div>
+                        <button type="submit" id="btn-submit-rsvp" class="btn-primary">Kirim RSVP</button>
+                    </form>
+                    <p id="rsvp-alert" class="alert-message hidden"></p>
+                </div>
+            </section>
+        </div>
+
+        <!-- BOTTOM NAVIGATION BAR -->
+        <nav class="bottom-nav">
+            <button class="nav-item active" onclick="switchPage('home', this)">
+                <span>🏠</span> Home
+            </button>
+            <button class="nav-item" onclick="switchPage('event', this)">
+                <span>📅</span> Event
+            </button>
+            <button class="nav-item" onclick="switchPage('rsvp', this)">
+                <span>✉️</span> RSVP
+            </button>
+        </nav>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
