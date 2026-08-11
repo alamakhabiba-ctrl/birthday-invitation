@@ -15,18 +15,33 @@ window.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get('code');
 
+    console.log('[Invitation] URL search params:', window.location.search);
+    console.log('[Invitation] Invite Code from URL:', code);
+
     if (code && APPS_SCRIPT_URL !== 'PASTE_URL_HERE') {
-        fetch(`${APPS_SCRIPT_URL}?code=${encodeURIComponent(code)}`)
+        const fetchUrl = `${APPS_SCRIPT_URL}?code=${encodeURIComponent(code)}`;
+        console.log('[Invitation] Fetching Apps Script URL:', fetchUrl);
+
+        fetch(fetchUrl)
             .then(res => res.json())
             .then(data => {
-                if (data.guestName) {
-                    document.getElementById('guest-name').innerText = data.guestName;
-                    guestInviteCode = data.inviteCode || code;
+                console.log('[Invitation] Apps Script response:', data);
+
+                const guestName = data?.guestName || data?.name || data?.nama || data?.guest_name || data?.result?.guestName || data?.result?.name;
+                const inviteCode = data?.inviteCode || data?.invite_code || data?.code || data?.result?.inviteCode || code;
+
+                if (guestName) {
+                    console.log('[Invitation] guestName found:', guestName);
+                    document.getElementById('guest-name').innerText = guestName;
+                    guestInviteCode = inviteCode;
+                    console.log('[Invitation] guestInviteCode saved:', guestInviteCode);
                 } else {
+                    console.warn('[Invitation] guestName not found in response, using fallback label');
                     document.getElementById('guest-name').innerText = 'Tamu Spesial';
                 }
             })
-            .catch(() => {
+            .catch(error => {
+                console.error('[Invitation] Error fetching guest data:', error);
                 document.getElementById('guest-name').innerText = 'Tamu Spesial';
             });
     } else {
