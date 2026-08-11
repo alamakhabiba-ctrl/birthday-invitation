@@ -205,8 +205,10 @@ input, select, textarea {
     top: 50%;
     transform: translateY(-50%);
     width: 140px;
-    opacity: 0.85;
-    z-index: 1;
+    display: block;
+    opacity: 0.95;
+    visibility: visible;
+    z-index: 100;
     pointer-events: none;
     filter: drop-shadow(0 6px 18px rgba(217, 95, 151, 0.18));
     animation: floaty 6s ease-in-out infinite;
