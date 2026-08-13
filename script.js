@@ -190,16 +190,26 @@ function submitRSVP(event) {
     formData.append('guestCount', document.getElementById('form-count').value);
     formData.append('wishes', document.getElementById('form-wishes').value);
 
+    console.log('[RSVP] Form data being sent:', {
+        inviteCode: guestInviteCode || 'GENERAL',
+        name: document.getElementById('form-name').value,
+        attendance: document.getElementById('form-attendance').value,
+        guestCount: document.getElementById('form-count').value,
+        wishes: document.getElementById('form-wishes').value
+    });
+
     fetch(APPS_SCRIPT_URL, {
         method: 'POST',
         body: formData
     })
     .then(res => res.json())
     .then(data => {
+        console.log('[RSVP] Success response from Apps Script:', data);
         document.getElementById('rsvp-form').reset();
         showThanksPage();
     })
-    .catch(() => {
+    .catch(error => {
+        console.error('[RSVP] Error sending RSVP:', error);
         alertMsg.innerText = 'Gagal mengirim RSVP. Silakan coba lagi.';
         alertMsg.classList.remove('hidden');
     })
