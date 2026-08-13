@@ -2,9 +2,30 @@
 // 0. KONFIGURASI GOOGLE APPS SCRIPT
 // Ganti 'PASTE_URL_HERE' dengan URL Web App Apps Script kamu
 // ==========================================================
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzc_Utes7u-hHcSiFnXujl3xkqUynVC-5DLL0zRQGPWTuZ4lwF-9LLXQwfCOQB75AS1Hw/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwyD2Uw-YQJmFrO-ZiD81TCGa9yUFalCmhYDa--8JD1lXPfcG0MOFlKilqDykBdWIda3g/exec';
 
 let guestInviteCode = '';
+
+// ==========================================================
+// TEST CONNECTION (bisa di-call dari console)
+// Ketik: testConnection() di console untuk test
+// ==========================================================
+function testConnection() {
+    console.log('[TEST] Testing Apps Script connection...');
+    console.log('[TEST] URL:', APPS_SCRIPT_URL);
+    
+    // Test GET request
+    fetch(APPS_SCRIPT_URL + '?code=TEST')
+        .then(res => res.json())
+        .then(data => {
+            console.log('[TEST] GET response:', data);
+            alert('✅ Connection OK!\n\nResponse:\n' + JSON.stringify(data, null, 2));
+        })
+        .catch(error => {
+            console.error('[TEST] GET error:', error);
+            alert('❌ Connection FAILED!\n\nError: ' + error.message);
+        });
+}
 
 // ==========================================================
 // 1. DOMCONTENTLOADED — AMBIL NAMA TAMU BERDASARKAN ?code=
