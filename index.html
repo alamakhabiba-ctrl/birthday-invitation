@@ -121,17 +121,29 @@
                     <p id="rsvp-alert" class="alert-message hidden"></p>
                 </div>
             </section>
+
+            <section id="page-thanks" class="page-section hidden">
+                <div class="thanks-card">
+                    <p class="thanks-kicker">Terima kasih</p>
+                    <h2 class="thanks-title">Atas kehadiran dan doa restu Anda</h2>
+                    <p class="thanks-message">
+                        Kehadiran dan doa yang Anda berikan sangat berarti bagi kami.
+                        Semoga kebersamaan ini menjadi momen yang indah dan penuh keberkahan.
+                    </p>
+                    <button class="btn-primary" onclick="switchPage('home', document.querySelector('.nav-item[data-page=\'home\']'))">Kembali ke Beranda</button>
+                </div>
+            </section>
         </div>
 
         <!-- BOTTOM NAVIGATION BAR -->
         <nav class="bottom-nav">
-            <button class="nav-item active" onclick="switchPage('home', this)">
+            <button class="nav-item active" data-page="home" onclick="switchPage('home', this)">
                 <span>🏠</span>
             </button>
-            <button class="nav-item" onclick="switchPage('event', this)">
+            <button class="nav-item" data-page="event" onclick="switchPage('event', this)">
                 <span>📅</span>
             </button>
-            <button class="nav-item" onclick="switchPage('rsvp', this)">
+            <button class="nav-item" data-page="rsvp" onclick="switchPage('rsvp', this)">
                 <span>✉️</span>
             </button>
         </nav>

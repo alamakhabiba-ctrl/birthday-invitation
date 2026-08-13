@@ -163,6 +163,17 @@ function copyRekening() {
 // 6. SUBMIT RSVP KE GOOGLE SHEETS (POST)
 //    Body: inviteCode, name, attendance, guestCount, wishes
 // ==========================================================
+function showThanksPage() {
+    document.querySelectorAll('.page-section').forEach(section => {
+        section.classList.add('hidden');
+    });
+
+    document.getElementById('page-thanks').classList.remove('hidden');
+    document.querySelectorAll('.nav-item').forEach(btn => {
+        btn.classList.remove('active');
+    });
+}
+
 function submitRSVP(event) {
     event.preventDefault();
 
@@ -185,16 +196,15 @@ function submitRSVP(event) {
     })
     .then(res => res.json())
     .then(data => {
-        alertMsg.innerText = 'Terima kasih, konfirmasi kehadiran berhasil terkirim!';
-        alertMsg.classList.remove('hidden');
         document.getElementById('rsvp-form').reset();
+        showThanksPage();
     })
     .catch(() => {
         alertMsg.innerText = 'Gagal mengirim RSVP. Silakan coba lagi.';
         alertMsg.classList.remove('hidden');
     })
     .finally(() => {
-        btnSubmit.innerText = 'Kirim RSVP';
+        btnSubmit.innerText = 'Kirim';
         btnSubmit.disabled = false;
     });
 }
