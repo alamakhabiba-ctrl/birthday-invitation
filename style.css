@@ -13,9 +13,10 @@
     /* ======================================================
        ATUR POSISI SELURUH KELOMPOK COVER DI SINI
        
-       Sekarang semua element (tanggal, guest box, tombol)
-       berada di TENGAH LAYAR secara default.
+       Angka lebih besar = element makin naik
+       Angka lebih kecil = element makin turun
        ====================================================== */
+    --cover-group-offset: 0px;
 
     /* Warna pink pastel */
     --pink-50: #fdf2f6;
@@ -193,11 +194,10 @@ a {
 
     align-items: center;
 
-    justify-content: flex-end;
+    justify-content: center;
 
-    /*
-       Semua elemen dibuat menjadi satu grup.
-    */
+    transform: translateY(calc(var(--cover-group-offset)));
+
     gap: 12px;
 
     min-height: 0;
@@ -1496,10 +1496,10 @@ a {
 
         bottom:
             calc(
-                8px
+                10px
                 + env(safe-area-inset-bottom)
             );
-    }
+    } git rebase --continue
 
     .nav-item {
 
@@ -1515,10 +1515,18 @@ a {
 @media (max-width: 360px) {
 
     /*
-       Tetap di tengah untuk ukuran sangat kecil.
+       Sedikit lebih dekat ke bawah
+       agar tidak terlalu banyak ruang kosong.
     */
+    :root {
+
+        --cover-bottom-position: 10px;
+    }
 
     .cover-content {
+
+        left: 8px;
+        right: 8px;
 
         gap: 8px;
     }
