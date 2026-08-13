@@ -184,84 +184,384 @@ function copyRekening() {
 // 6. SUBMIT RSVP KE GOOGLE SHEETS (POST)
 //    Body: inviteCode, name, attendance, guestCount, wishes
 // ==========================================================
+
 function showThanksPage() {
     document.querySelectorAll('.page-section').forEach(section => {
         section.classList.add('hidden');
     });
 
-    document.getElementById('page-thanks').classList.remove('hidden');
+    const thanksPage = document.getElementById('page-thanks');
+
+    if (thanksPage) {
+        thanksPage.classList.remove('hidden');
+    }
+
     document.querySelectorAll('.nav-item').forEach(btn => {
         btn.classList.remove('active');
     });
 }
 
-function submitRSVP(event) {
-    event.preventDefault();
 
-    const btnSubmit = document.getElementById('btn-submit-rsvp');
-    const alertMsg = document.getElementById('rsvp-alert');
+// ==========================================================
+// SUBMIT RSVP
+// ==========================================================
 
-    btnSubmit.innerText = 'Mengirim...';
+async function submitRSVP(event) {
+
+    // Mencegah halaman reload
+    if (event) {
+        event.preventDefault();
+    }
+
+    const btnSubmit =
+        document.getElementById('btn-submit-rsvp');
+
+    const alertMsg =
+        document.getElementById('rsvp-alert');
+
+    const rsvpForm =
+        document.getElementById('rsvp-form');
+
+
+    // ------------------------------------------------------
+    // Pastikan elemen tersedia
+    // ------------------------------------------------------
+
+    if (!btnSubmit || !alertMsg || !rsvpForm) {
+
+        console.error(
+            '[RSVP] Elemen form RSVP tidak ditemukan.'
+        );
+
+        return;
+    }
+
+
+    // ------------------------------------------------------
+    // Ambil kode tamu dari URL
+    //
+    // Contoh:
+    // ?code=TM-001
+    // ------------------------------------------------------
+
+    const urlParams =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    const urlInviteCode =
+        (urlParams.get('code') || '').trim();
+
+
+    // ------------------------------------------------------
+    // Tentukan invite code
+    //
+    // Prioritas:
+    // 1. guestInviteCode
+    // 2. code dari URL
+    // 3. GENERAL
+    // ------------------------------------------------------
+
+    const inviteCode =
+        (
+            guestInviteCode ||
+            urlInviteCode ||
+            'GENERAL'
+        ).trim();
+
+
+    // ------------------------------------------------------
+    // Ambil data form
+    // ------------------------------------------------------
+
+    const name =
+        document.getElementById('form-name')
+            ?.value
+            .trim() || '';
+
+    const attendance =
+        document.getElementById('form-attendance')
+            ?.value
+            .trim() || '';
+
+    const guestCount =
+        document.getElementById('form-count')
+            ?.value
+            .trim() || '';
+
+    const wishes =
+        document.getElementById('form-wishes')
+            ?.value
+            .trim() || '';
+
+
+    // ------------------------------------------------------
+    // Validasi nama
+    // ------------------------------------------------------
+
+    if (!name) {
+
+        alertMsg.innerText =
+            'Silakan isi nama terlebih dahulu.';
+
+        alertMsg.classList.remove('hidden');
+
+        return;
+    }
+
+
+    // ------------------------------------------------------
+    // Validasi kehadiran
+    // ------------------------------------------------------
+
+    if (!attendance) {
+
+        alertMsg.innerText =
+            'Silakan pilih konfirmasi kehadiran.';
+
+        alertMsg.classList.remove('hidden');
+
+        return;
+    }
+
+
+    // ------------------------------------------------------
+    // Status tombol
+    // ------------------------------------------------------
+
+    btnSubmit.innerText =
+        'Mengirim...';
+
     btnSubmit.disabled = true;
+
     alertMsg.classList.add('hidden');
 
-    const formData = new URLSearchParams();
-    formData.append('inviteCode', guestInviteCode || 'GENERAL');
-    formData.append('name', document.getElementById('form-name').value);
-    formData.append('attendance', document.getElementById('form-attendance').value);
-    formData.append('guestCount', document.getElementById('form-count').value);
-    formData.append('wishes', document.getElementById('form-wishes').value);
 
-    console.log('[RSVP] Form data being sent:', {
-        inviteCode: guestInviteCode || 'GENERAL',
-        name: document.getElementById('form-name').value,
-        attendance: document.getElementById('form-attendance').value,
-        guestCount: document.getElementById('form-count').value,
-        wishes: document.getElementById('form-wishes').value
-    });
+    // ------------------------------------------------------
+    // Data yang akan dikirim
+    // ------------------------------------------------------
 
-    // Timeout handling: 10 seconds max
-    const timeoutId = setTimeout(() => {
-        console.error('[RSVP] Request timeout after 10 seconds');
-        alertMsg.innerText = 'Koneksi lambat. Silakan periksa internet dan coba lagi.';
-        alertMsg.classList.remove('hidden');
-        btnSubmit.innerText = 'Kirim';
-        btnSubmit.disabled = false;
-    }, 10000);
+    const formData =
+        new URLSearchParams();
 
-    const controller = new AbortController();
-    const timeoutAbort = setTimeout(() => controller.abort(), 10000);
 
-    fetch(APPS_SCRIPT_URL, {
-        method: 'POST',
-        body: formData,
-        signal: controller.signal
-    })
-    .then(res => {
-        clearTimeout(timeoutAbort);
-        console.log('[RSVP] Response status:', res.status);
-        return res.json();
-    })
-    .then(data => {
-        clearTimeout(timeoutId);
-        console.log('[RSVP] Success response from Apps Script:', data);
-        document.getElementById('rsvp-form').reset();
-        showThanksPage();
-    })
-    .catch(error => {
-        clearTimeout(timeoutId);
-        clearTimeout(timeoutAbort);
-        console.error('[RSVP] Error sending RSVP:', error.message);
-        
-        if (error.name === 'AbortError') {
-            alertMsg.innerText = 'Koneksi timeout. Silakan cek internet dan coba lagi.';
-        } else {
-            alertMsg.innerText = 'Gagal mengirim RSVP. Silakan coba lagi.';
+    formData.append(
+        'inviteCode',
+        inviteCode
+    );
+
+    formData.append(
+        'name',
+        name
+    );
+
+    formData.append(
+        'attendance',
+        attendance
+    );
+
+    formData.append(
+        'guestCount',
+        guestCount
+    );
+
+    formData.append(
+        'wishes',
+        wishes
+    );
+
+
+    // ------------------------------------------------------
+    // Debug
+    // ------------------------------------------------------
+
+    console.log(
+        '[RSVP] Data yang dikirim:',
+        {
+            inviteCode: inviteCode,
+            name: name,
+            attendance: attendance,
+            guestCount: guestCount,
+            wishes: wishes
         }
-        alertMsg.classList.remove('hidden');
-    })
-    .finally(() => {
-        btnSubmit.innerText = 'Kirim';
-        btnSubmit.disabled = false;
-    });
+    );
+
+
+    // ------------------------------------------------------
+    // Timeout 15 detik
+    // ------------------------------------------------------
+
+    const controller =
+        new AbortController();
+
+    const timeoutId =
+        setTimeout(() => {
+
+            controller.abort();
+
+        }, 15000);
+
+
+    try {
+
+        // --------------------------------------------------
+        // Kirim ke Google Apps Script
+        // --------------------------------------------------
+
+        const response =
+            await fetch(
+                APPS_SCRIPT_URL,
+                {
+                    method: 'POST',
+                    body: formData,
+                    signal: controller.signal
+                }
+            );
+
+
+        clearTimeout(timeoutId);
+
+
+        console.log(
+            '[RSVP] HTTP status:',
+            response.status
+        );
+
+
+        // --------------------------------------------------
+        // Cek HTTP response
+        // --------------------------------------------------
+
+        if (!response.ok) {
+
+            throw new Error(
+                `Server mengembalikan HTTP ${response.status}`
+            );
+
+        }
+
+
+        // --------------------------------------------------
+        // Baca response JSON dari Code.gs
+        // --------------------------------------------------
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            '[RSVP] Response Apps Script:',
+            data
+        );
+
+
+        // --------------------------------------------------
+        // CEK HASIL SEBENARNYA
+        //
+        // Code.gs mengembalikan:
+        //
+        // success: true
+        //
+        // jika berhasil.
+        // --------------------------------------------------
+
+        if (
+            !data ||
+            data.success !== true
+        ) {
+
+            throw new Error(
+                data?.message ||
+                'RSVP tidak berhasil disimpan.'
+            );
+
+        }
+
+
+        // --------------------------------------------------
+        // RSVP BERHASIL DISIMPAN
+        // --------------------------------------------------
+
+        console.log(
+            `[RSVP] Berhasil disimpan untuk ${inviteCode}`
+        );
+
+
+        // Reset form
+        rsvpForm.reset();
+
+
+        // Tampilkan halaman terima kasih
+        showThanksPage();
+
+
+    } catch (error) {
+
+        clearTimeout(timeoutId);
+
+
+        console.error(
+            '[RSVP] Gagal mengirim:',
+            error
+        );
+
+
+        // --------------------------------------------------
+        // Timeout
+        // --------------------------------------------------
+
+        if (
+            error.name === 'AbortError'
+        ) {
+
+            alertMsg.innerText =
+                'Koneksi timeout. Data belum dikonfirmasi tersimpan. Silakan coba lagi.';
+
+
+        // --------------------------------------------------
+        // Response bukan JSON
+        // --------------------------------------------------
+
+        } else if (
+            error instanceof SyntaxError
+        ) {
+
+            alertMsg.innerText =
+                'Response dari Google Apps Script tidak dapat dibaca. Periksa deployment Web App /exec.';
+
+
+        // --------------------------------------------------
+        // Error lainnya
+        // --------------------------------------------------
+
+        } else {
+
+            alertMsg.innerText =
+                'Gagal menyimpan RSVP: ' +
+                (
+                    error.message ||
+                    'Silakan coba lagi.'
+                );
+
+        }
+
+
+        alertMsg.classList.remove(
+            'hidden'
+        );
+
+
+    } finally {
+
+        // --------------------------------------------------
+        // Aktifkan kembali tombol
+        // --------------------------------------------------
+
+        btnSubmit.innerText =
+            'Kirim';
+
+        btnSubmit.disabled =
+            false;
+
+    }
 }
