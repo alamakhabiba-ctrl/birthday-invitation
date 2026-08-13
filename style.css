@@ -12,11 +12,10 @@
 
     /* ======================================================
        ATUR POSISI SELURUH KELOMPOK COVER DI SINI
-
-       Semakin kecil = semakin ke bawah
-       Semakin besar = semakin ke atas
+       
+       Sekarang semua element (tanggal, guest box, tombol)
+       berada di TENGAH LAYAR secara default.
        ====================================================== */
-    --cover-bottom-position: 20px;
 
     /* Warna pink pastel */
     --pink-50: #fdf2f6;
@@ -146,16 +145,8 @@ a {
     overflow: hidden;
 
     /*
-       ======================================================
-       POSISI KESELURUH KELOMPOK COVER
-       ======================================================
-
-       Semua ini akan bergerak bersama:
-       - tanggal
-       - guest box
-       - tombol
+       Semua element sekarang di tengah layar.
        */
-    --cover-bottom-position: 18px;
 }
 
 
@@ -182,16 +173,7 @@ a {
 
 .cover-content {
 
-    position: absolute;
-
-    left: 20px;
-    right: 20px;
-
-    bottom:
-        calc(
-            var(--cover-bottom-position)
-            + env(safe-area-inset-bottom)
-        );
+    position: relative;
 
     z-index: 2;
 
@@ -1326,30 +1308,14 @@ a {
 
     .cover-content {
 
-        left: 12px;
-        right: 12px;
-
-        bottom:
-            calc(
-                var(--cover-bottom-position)
-                + env(safe-area-inset-bottom)
-            );
-
         max-width: 390px;
 
         gap: 10px;
     }
 
     /*
-       Kalau mau menurunkan SEMUA:
-       tanggal + guest box + tombol
-
-       ubah angka ini.
+       Semua element tetap di tengah untuk mobile.
     */
-    :root {
-
-        --cover-bottom-position: 16px;
-    }
 
     .cover-date {
 
@@ -1549,18 +1515,10 @@ a {
 @media (max-width: 360px) {
 
     /*
-       Sedikit lebih dekat ke bawah
-       agar tidak terlalu banyak ruang kosong.
+       Tetap di tengah untuk ukuran sangat kecil.
     */
-    :root {
-
-        --cover-bottom-position: 10px;
-    }
 
     .cover-content {
-
-        left: 8px;
-        right: 8px;
 
         gap: 8px;
     }
