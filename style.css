@@ -755,19 +755,22 @@ a {
     background: #f6d5e3;
 }
 
-.dresscode-reference-card {
-    overflow: hidden;
-    border-radius: 18px;
-    border: 1px solid var(--pink-200);
-    box-shadow: var(--shadow-soft);
+.dresscode-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
     margin-bottom: 18px;
 }
 
-.dresscode-reference-img {
+.dresscode-photo {
     display: block;
     width: 100%;
-    height: 260px;
+    height: 180px;
     object-fit: cover;
+    border-radius: 16px;
+    border: 1px solid var(--pink-200);
+    box-shadow: var(--shadow-soft);
+    background: #fdf3f6;
 }
 
 .dresscode-message {
