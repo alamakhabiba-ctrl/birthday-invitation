@@ -707,6 +707,77 @@ a {
     line-height: 1.8;
 }
 
+.dresscode-card {
+    max-width: 620px;
+    margin: 30px auto 0;
+    padding: 26px 18px 24px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--pink-200);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-soft);
+    text-align: center;
+}
+
+.dresscode-kicker {
+    margin-bottom: 10px;
+    color: var(--pink-600);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.dresscode-swatch-wrap {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin: 18px 0 24px;
+}
+
+.dresscode-swatch {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 150px;
+    min-height: 56px;
+    border-radius: 999px;
+    font-weight: 600;
+    color: #5e3d48;
+    box-shadow: var(--shadow-soft);
+}
+
+.dresscode-swatch.butter-yellow {
+    background: #f7e7a0;
+}
+
+.dresscode-swatch.soft-pink {
+    background: #f6d5e3;
+}
+
+.dresscode-reference-card {
+    overflow: hidden;
+    border-radius: 18px;
+    border: 1px solid var(--pink-200);
+    box-shadow: var(--shadow-soft);
+    margin-bottom: 18px;
+}
+
+.dresscode-reference-img {
+    display: block;
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+}
+
+.dresscode-message {
+    margin: 0 auto;
+    max-width: 500px;
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.8;
+}
+
 
 /* ==========================================================
    10. COUNTDOWN

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sweet Seventeen Habibah Syarifaturrahma</title>
+    <title>Sweet Seventeen Habibah Syarifaturrahma amien</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -67,7 +67,6 @@
                 <div class="event-card">
                     <p class="event-date">🗓️ Sabtu, 05 September 2026</p>
                     <p class="event-time">⏰ 15:00 WIB - Selesai
-                        <p>Dresscode: CREAM & PINK DUSTY </p>
                     </p>
 
                     <hr>
@@ -88,9 +87,6 @@
                         <p class="account-number" id="account-no">14906001357 </p>
                         <p class="account-holder">a.n Habibah Syarifaturrahma</p>
                         <button class="btn-secondary" onclick="copyRekening()">Copy Rekening</button>
-                    </div>
-                    <div class="qris-box">
-                        <img src="images/qris.png" alt="QRIS" class="qris-img">
                     </div>
                 </div>
 
@@ -125,6 +121,35 @@
                 </div>
             </section>
 
+            <section id="page-dresscode" class="page-section hidden">
+                <div class="dresscode-card">
+                    <p class="dresscode-kicker">Dresscode</p>
+                    <h2 class="section-title">Butter Yellow &amp; Soft Pink</h2>
+
+                    <div class="dresscode-swatch-wrap">
+                        <div class="dresscode-swatch butter-yellow">
+                            <span>Butter Yellow</span>
+                        </div>
+                        <div class="dresscode-swatch soft-pink">
+                            <span>Soft Pink</span>
+                        </div>
+                    </div>
+
+                    <div class="dresscode-reference-card">
+                        <img
+                            src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=900&q=80"
+                            alt="Referensi outfit wanita berwarna pastel"
+                            class="dresscode-reference-img"
+                        >
+                    </div>
+
+                    <p class="dresscode-message">
+                        Silakan hadir dengan nuansa <strong>butter yellow</strong> dan <strong>soft pink</strong>
+                        untuk menciptakan tampilan yang lembut, hangat, dan selaras dengan tema pastel kami.
+                    </p>
+                </div>
+            </section>
+
             <section id="page-thanks" class="page-section hidden">
                 <div class="thanks-card">
                     <p class="thanks-kicker">Terima kasih</p>
@@ -148,6 +173,9 @@
             </button>
             <button class="nav-item" data-page="rsvp" onclick="switchPage('rsvp', this)">
                 <span>✉️</span>
+            </button>
+            <button class="nav-item" data-page="dresscode" onclick="switchPage('dresscode', this)">
+                <span>👗</span>
             </button>
         </nav>
 
