@@ -196,7 +196,7 @@ a {
 
     justify-content: center;
 
-    transform: translateY(calc(var(--cover-group-offsetp)));
+    transform: translateY(calc(var(--cover-group-offset)));
 
     gap: 12px;
 
@@ -321,33 +321,38 @@ a {
 
     margin: 0;
 
-    padding: 15px 44px;
+    padding: 14px 28px;
 
-    border-radius: 50px;
+    border-radius: 999px;
 
-    background:
-        linear-gradient(
-            135deg,
-            var(--pink-400),
-            var(--pink-600)
-        );
+    background: rgba(255, 255, 255, 0.35);
 
-    color: #ffffff;
+    color: #3d2b2f;
 
-    font-size: 0.85rem;
+    font-size: 1.1rem;
 
     font-weight: 600;
 
-    letter-spacing: 1.5px;
+    letter-spacing: 0.2px;
 
-    text-transform: uppercase;
+    text-transform: none;
 
     box-shadow:
-        0 12px 30px rgba(0, 0, 0, 0.25);
+        inset 0 0 0 1px rgba(255,255,255,0.4),
+        0 6px 20px rgba(0, 0, 0, 0.08);
 
     transition:
         transform 0.25s ease,
-        box-shadow 0.25s ease;
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+.btn-open::before {
+    content: "❤";
+    margin-right: 10px;
+    font-size: 1.1rem;
+    vertical-align: middle;
+    color: #ec6a95;
 }
 
 .btn-open:hover {
