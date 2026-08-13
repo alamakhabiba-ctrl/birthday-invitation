@@ -29,6 +29,17 @@
 // → mencatat bahwa undangan sudah dibuka
 // ==========================================================
 
+// ID spreadsheet jika Apps Script berdiri sendiri (bukan container-bound).
+// Ganti dengan ID spreadsheet Anda (di URL antara `/d/` dan `/edit`).
+const SPREADSHEET_ID = 'PASTE_SPREADSHEET_ID_HERE';
+
+function getSpreadsheet() {
+  if (SPREADSHEET_ID && SPREADSHEET_ID !== 'PASTE_SPREADSHEET_ID_HERE') {
+    return SpreadsheetApp.openById(SPREADSHEET_ID);
+  }
+  return SpreadsheetApp.getActiveSpreadsheet();
+}
+
 function doGet(e) {
 
   try {
@@ -66,8 +77,7 @@ function doGet(e) {
     // Cari tamu berdasarkan inviteCode
     // ------------------------------------------------------
 
-    const sheet = SpreadsheetApp
-      .getActiveSpreadsheet()
+    const sheet = getSpreadsheet()
       .getSheetByName('Guests');
 
     if (!sheet) {
@@ -276,8 +286,7 @@ function doPost(e) {
 
     Logger.log('[doPost] Mencari sheet RSVP');
 
-    const sheet = SpreadsheetApp
-      .getActiveSpreadsheet()
+    const sheet = getSpreadsheet()
       .getSheetByName('RSVP');
 
 
