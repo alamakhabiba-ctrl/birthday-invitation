@@ -16,7 +16,7 @@
        Angka lebih besar = element makin naik
        Angka lebih kecil = element makin turun
        ====================================================== */
-    --cover-group-offset: 0px;
+    --cover-group-offset: 30px;
 
     /* Warna pink pastel */
     --pink-50: #fdf2f6;
@@ -196,7 +196,7 @@ a {
 
     justify-content: center;
 
-    transform: translateY(calc(var(--cover-group-offset)));
+    transform: translateY(calc(var(--cover-group-offsetp)));
 
     gap: 12px;
 
