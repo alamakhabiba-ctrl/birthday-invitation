@@ -180,8 +180,9 @@ function submitRSVP(event) {
     const btnSubmit = document.getElementById('btn-submit-rsvp');
     const alertMsg = document.getElementById('rsvp-alert');
 
-    btnSubmit.innerText = 'Sending...';
+    btnSubmit.innerText = 'Mengirim...';
     btnSubmit.disabled = true;
+    alertMsg.classList.add('hidden');
 
     const formData = new URLSearchParams();
     formData.append('inviteCode', guestInviteCode || 'GENERAL');
@@ -198,19 +199,44 @@ function submitRSVP(event) {
         wishes: document.getElementById('form-wishes').value
     });
 
+    // Timeout handling: 10 seconds max
+    const timeoutId = setTimeout(() => {
+        console.error('[RSVP] Request timeout after 10 seconds');
+        alertMsg.innerText = 'Koneksi lambat. Silakan periksa internet dan coba lagi.';
+        alertMsg.classList.remove('hidden');
+        btnSubmit.innerText = 'Kirim';
+        btnSubmit.disabled = false;
+    }, 10000);
+
+    const controller = new AbortController();
+    const timeoutAbort = setTimeout(() => controller.abort(), 10000);
+
     fetch(APPS_SCRIPT_URL, {
         method: 'POST',
-        body: formData
+        body: formData,
+        signal: controller.signal
     })
-    .then(res => res.json())
+    .then(res => {
+        clearTimeout(timeoutAbort);
+        console.log('[RSVP] Response status:', res.status);
+        return res.json();
+    })
     .then(data => {
+        clearTimeout(timeoutId);
         console.log('[RSVP] Success response from Apps Script:', data);
         document.getElementById('rsvp-form').reset();
         showThanksPage();
     })
     .catch(error => {
-        console.error('[RSVP] Error sending RSVP:', error);
-        alertMsg.innerText = 'Gagal mengirim RSVP. Silakan coba lagi.';
+        clearTimeout(timeoutId);
+        clearTimeout(timeoutAbort);
+        console.error('[RSVP] Error sending RSVP:', error.message);
+        
+        if (error.name === 'AbortError') {
+            alertMsg.innerText = 'Koneksi timeout. Silakan cek internet dan coba lagi.';
+        } else {
+            alertMsg.innerText = 'Gagal mengirim RSVP. Silakan coba lagi.';
+        }
         alertMsg.classList.remove('hidden');
     })
     .finally(() => {
