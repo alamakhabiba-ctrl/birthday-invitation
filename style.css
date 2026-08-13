@@ -22,7 +22,7 @@
     --font-script: 'Great Vibes', cursive;
     --font-body: 'Poppins', sans-serif;
     /* ATUR POSISI KOTAK NAMA TAMU DI SINI - Angka lebih besar = lebih turun */
-    --guest-box-position: 1000px;
+    --guest-box-position: 0px;
 }
 
 * {
@@ -103,7 +103,7 @@ input, select, textarea {
     color: #fff;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     min-height: 100vh;
     gap: 16px;
 }
