@@ -556,14 +556,17 @@ a {
     font-family: var(--font-script);
 
     font-size: clamp(
-        2.6rem,
-        10vw,
-        4.8rem
+        1.1rem,
+        calc((100vw - 40px) / 16.5),
+        2.9rem
     );
 
     font-weight: 400;
 
     line-height: 1.05;
+
+    /* Nama selalu 1 baris, ukuran font menyesuaikan lebar layar */
+    white-space: nowrap;
 }
 
 
@@ -1513,16 +1516,6 @@ a {
        HOME
        ------------------------------------------------------ */
 
-    .home-name {
-
-        font-size:
-            clamp(
-                2.3rem,
-                12vw,
-                3.5rem
-            );
-    }
-
     .home-greeting {
 
         font-size: 0.82rem;
@@ -1761,11 +1754,6 @@ a {
     .content-wrapper {
 
         padding-top: 70px;
-    }
-
-    .home-name {
-
-        font-size: 5rem;
     }
 
     .home-greeting {
