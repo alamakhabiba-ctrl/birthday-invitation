@@ -34,10 +34,7 @@
 const SPREADSHEET_ID = '1UPPj3qOEcyb2kcp0HCOaPdluwlkh5DwKWiXS6Fb_zl8';
 
 function getSpreadsheet() {
-  if (SPREADSHEET_ID && SPREADSHEET_ID !== 'PASTE_SPREADSHEET_ID_HERE') {
-    return SpreadsheetApp.openById(SPREADSHEET_ID);
-  }
-  return SpreadsheetApp.getActiveSpreadsheet();
+  return SpreadsheetApp.openById(SPREADSHEET_ID);
 }
 
 function doGet(e) {
@@ -58,6 +55,24 @@ function doGet(e) {
 
     Logger.log('[doGet] Code:', code);
     Logger.log('[doGet] Action:', action);
+
+
+    // ------------------------------------------------------
+    // DIAGNOSE: list semua sheet
+    // ?action=sheets → menampilkan semua nama sheet
+    // (hanya untuk debugging, hapus setelah selesai)
+    // ------------------------------------------------------
+
+    if (action === 'sheets') {
+      const sheets = getSpreadsheet()
+        .getSheets()
+        .map(s => s.getName());
+      return jsonResponse({
+        success: true,
+        sheets: sheets,
+        spreadsheetId: SPREADSHEET_ID
+      });
+    }
 
 
     // ------------------------------------------------------
