@@ -2,7 +2,7 @@
 // 0. KONFIGURASI GOOGLE APPS SCRIPT
 // Ganti 'PASTE_URL_HERE' dengan URL Web App Apps Script kamu
 // ==========================================================
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz3W0E67Yp1AH_0VwvZEk7vzFib-ISaOZ0v00TsvcNwf54O51xbHi5QUsm5MJGOabCebg/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzb1mqwk7BxoYBiiZTbS9ewWB9HBUiWrjcCX2p3rRkBCqXh6RjN6XINAQJCk2HaFK80ZQ/exec';
 
 let guestInviteCode = '';
 
