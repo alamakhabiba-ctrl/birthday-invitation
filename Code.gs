@@ -31,7 +31,7 @@
 
 // ID spreadsheet jika Apps Script berdiri sendiri (bukan container-bound).
 // Ganti dengan ID spreadsheet Anda (di URL antara `/d/` dan `/edit`).
-const SPREADSHEET_ID = 'PASTE_SPREADSHEET_ID_HERE';
+const SPREADSHEET_ID = '1UPPj3qOEcyb2kcp0HCOaPdluwlkh5DwKWiXS6Fb_zl8';
 
 function getSpreadsheet() {
   if (SPREADSHEET_ID && SPREADSHEET_ID !== 'PASTE_SPREADSHEET_ID_HERE') {
