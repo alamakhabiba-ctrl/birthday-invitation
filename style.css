@@ -714,7 +714,7 @@ a {
     max-width: 620px;
     margin: 30px auto 0;
     padding: 26px 18px 24px;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(250, 232, 239, 0.9);
     border: 1px solid var(--pink-200);
     border-radius: var(--radius);
     box-shadow: var(--shadow-soft);
@@ -750,12 +750,12 @@ a {
     box-shadow: var(--shadow-soft);
 }
 
-.dresscode-swatch.butter-yellow {
+.dresscode-swatch.white {
     background: #ffffff;
 }
 
 .dresscode-swatch.soft-pink {
-    background: #f6d5e3;
+    background: #ffc7de;
 }
 
 .dresscode-gallery {
