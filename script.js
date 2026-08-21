@@ -125,7 +125,7 @@ function switchPage(pageId, element) {
 // 4. COUNTDOWN TIMER — TARGET: 05 SEPTEMBER 2026, 15:00 WIB
 // ==========================================================
 function startCountdown() {
-    const targetDate = new Date(2026, 8, 5, 15, 0, 0).getTime(); // 05 September 2026, 15:00 WIB
+    const targetDate = new Date(2026, 8, 5, 17, 0, 0).getTime(); // 05 September 2026, 15:00 WIB
 
     const updateCountdown = () => {
         const now = new Date().getTime();
